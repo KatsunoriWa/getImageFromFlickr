@@ -32,16 +32,25 @@ def getImageUrlFromFlickr(API_KEY, query, N):
     return url_list
 
 
+def getData(url):
+    basename = os.path.basename(url)
+    response = urllib2.urlopen(url)
+    data = response.read()
+    open(basename, "wt").write(data)
+
+
 def wget_lists(url_List):
     for url in url_list:
         print url
         basename = os.path.basename(url)
         print basename
         if not os.path.isfile(basename):
-            cmd = "wget %s" % url
-            os.system(cmd)
+#            cmd = "wget %s" % url
+#            os.system(cmd)
+            getData(url)
         else:
             print "already exists", basename
+
 
 if __name__ == '__main__':
 
